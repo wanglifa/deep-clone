@@ -12,6 +12,8 @@ function deepClone(source) {
                 deepObj = function() {
                     return source.apply(this, arguments)
                 }
+            } else if (source instanceof RegExp) {
+                deepObj = new RegExp(source.source, source.flags)
             } else {
                 deepObj = new Object()
             }
