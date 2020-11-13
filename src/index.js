@@ -21,8 +21,10 @@ function deepClone(source) {
             }
             cache.push([source, deepObj])
             for (let key in source) {
-                // 对对象里的每一项进行深拷贝并把这一项赋值给新的对象
-                deepObj[key] = deepClone(source[key])
+                if (source.hasOwnProperty(key)) {
+                    // 对对象里的每一项进行深拷贝并把这一项赋值给新的对象
+                    deepObj[key] = deepClone(source[key])
+                }
             }
             return deepObj
         }

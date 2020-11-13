@@ -80,7 +80,18 @@ describe('deepClone', () => {
         const a = new Date()
         a.xxx = { yyy: { zzz: 1} }
         const a2 = deepClone(a)
-       assert(a.getTime() === a2.getTime())
+        assert(a.getTime() === a2.getTime())
+        assert(a !== a2)
+        assert(a.xxx.yyy.zzz === a2.xxx.yyy.zzz)
+        assert(a.xxx.yyy !== a2.xxx.yyy)
+        assert(a.xxx !== a2.xxx)
+    })
+    it('自行跳过原型属性', () => {
+        const a = Object.create( { name: 'lifa' })
+        a.xxx = { yyy: { zzz: 1} }
+        const a2 = deepClone(a)
+        //a2上没有name属性
+        assert.isFalse('name' in a2)
         assert(a !== a2)
         assert(a.xxx.yyy.zzz === a2.xxx.yyy.zzz)
         assert(a.xxx.yyy !== a2.xxx.yyy)
